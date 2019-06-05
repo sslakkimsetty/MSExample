@@ -30,3 +30,11 @@ setMethod("removeBaseline", "MassSpectrum",
 	approx(i, b, seq_along(x))$y
 }
 
+setMethod("removeBaseline", "MassSpectraList",
+	function(object, ...) {
+		out <- lapply(object, removeBaseline)
+		object <- as(out, "MassSpectraList")
+
+		if ( validObject(object) )
+			object
+	})
