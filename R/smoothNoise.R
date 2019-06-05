@@ -23,3 +23,12 @@ setMethod("smoothNoise", "MassSpectrum",
 	x2 <- c(rep(x[1], halfWindow), x, rep(x[length(x)], halfWindow))
 	convolve(x2, kernel, type="filter")
 }
+
+setMethod("smoothNoise", "MassSpectraList",
+	function(object, ..) {
+		out <- lapply(object, smoothNoise)
+		out <- as(out, "MassSpectraList")
+
+		if ( validObject(out) )
+			out
+	})
