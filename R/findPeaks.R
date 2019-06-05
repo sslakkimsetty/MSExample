@@ -25,3 +25,11 @@ setMethod("findPeaks", "MassSpectrum",
 	intersect(p1, p2)
 }
 
+setMethod("findPeaks", "MassSpectraList",
+	function(object, ...) {
+		out <- lapply(object, findPeaks)
+		out <- as(out, "MassSpectraList")
+
+		if ( validObject(out) )
+			out
+	})
